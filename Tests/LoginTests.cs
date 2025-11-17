@@ -12,7 +12,11 @@ namespace PlaywrightAutomation.Tests
     {
         private LoginPage _loginPage = null!;
 
-        public LoginTests(string browserName) : base(browserName)
+        public LoginTests(string browserName) : base(browserName, null)
+        {
+        }
+
+        public LoginTests(string browserName, string? deviceName) : base(browserName, deviceName)
         {
         }
 
@@ -21,7 +25,6 @@ namespace PlaywrightAutomation.Tests
         {
             await BaseSetup();
             _loginPage = new LoginPage(Page);
-            Log($"Running test on browser: {BrowserName}");
         }
 
         [Test]
@@ -34,7 +37,8 @@ namespace PlaywrightAutomation.Tests
             await _loginPage.WaitForPageLoad();
 
             var isLoginSuccessful = await _loginPage.IsLoginSuccessful();
-            Assert.That(isLoginSuccessful, Is.True, $"Login should succeed on {BrowserName}");
+            var deviceInfo = !string.IsNullOrEmpty(DeviceName) ? $" on {DeviceName}" : "";
+            Assert.That(isLoginSuccessful, Is.True, $"Login should succeed on {BrowserName}{deviceInfo}");
         }
     }
 }
