@@ -5,10 +5,17 @@ namespace PlaywrightAutomation
     public interface IAppSettings
     {
         string BaseUrl { get; set; }
+
+        string ApiUrl { get; set; }
+
         int DefaultTimeout { get; set; }
+
         bool Headless { get; set; }
+
         string Browser { get; set; }
+
         List<string> Browsers { get; set; }
+
         TestCredentials Credentials { get; set; }
     }
 
@@ -21,6 +28,7 @@ namespace PlaywrightAutomation
            this.configuration = configuration;
 
             BaseUrl = configuration["BaseUrl"] ?? string.Empty;
+            ApiUrl = configuration["ApiUrl"] ?? string.Empty;
             DefaultTimeout = int.Parse(configuration["DefaultTimeout"] ?? "30000");
             Headless = bool.Parse(configuration["Headless"] ?? "true");
             Browser = configuration["Browser"] ?? "chromium";
@@ -29,10 +37,17 @@ namespace PlaywrightAutomation
         }
         
         public string BaseUrl { get; set; } = string.Empty;
+        
+        public string ApiUrl { get; set; } = string.Empty;
+
         public int DefaultTimeout { get; set; } = 30000;
+
         public bool Headless { get; set; } = true;
+
         public string Browser { get; set; } = "chromium";
+
         public List<string> Browsers { get; set; } = new List<string> { "chromium" };
+
         public TestCredentials Credentials { get; set; } = new TestCredentials();
     }
 
@@ -42,6 +57,7 @@ namespace PlaywrightAutomation
     public class TestCredentials
     {
         public string Username { get; set; } = string.Empty;
+
         public string Password { get; set; } = string.Empty;
     }
 }
